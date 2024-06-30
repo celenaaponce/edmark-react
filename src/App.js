@@ -1,4 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import './App.css';
+import React, { useRef, useEffect, useState } from "react";
+import Webcam from "react-webcam";
 import { Holistic } from "@mediapipe/holistic";
 import * as HolisticModule from "@mediapipe/holistic";
 
@@ -82,6 +84,8 @@ function App() {
   }
 
   function onResults(results) {
+    const imageWidth = webcamRef.current.video.videoWidth;
+    const imageHeight = webcamRef.current.video.videoHeight;
     if (results.poseLandmarks && results.leftHandLandmarks) {
       const xDistance = Math.abs(
         results.poseLandmarks.landmark[3].x -
@@ -94,7 +98,11 @@ function App() {
       setXDistance(xDistance);
       setYDistance(yDistance);
 
-      const boundingRect = calcBoundingRect(frame, results.leftHandLandmarks);
+      const boundingRect = calcBoundingRect(
+        imageWidth,
+        imageHeight,
+        results.leftHandLandmarks
+      );
       const preProcessedLandmarks = preProcessLandmark(
         results.leftHandLandmarks.landmark
       );
@@ -102,15 +110,10 @@ function App() {
       console.log(preProcessedLandmarks);
     }
     if (results.poseLandmarks) {
-      const imageWidth = webcamRef.current.video.videoWidth;
-      const imageHeight = webcamRef.current.video.videoHeight;
-      const boundingRect = calcBoundingRect(
-        imageWidth,
-        imageHeight,
+      const preProcessedLandmarksFace = preProcessLandmark(
         results.poseLandmarks.landmark
       );
-      console.log("Bounding Rectangle:", boundingRect);
-      // Use boundingRect as needed
+      console.log(preProcessedLandmarksFace);
     }
   }
 
