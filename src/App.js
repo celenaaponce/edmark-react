@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import { Holistic } from "@mediapipe/holistic";
 import * as cam from "@mediapipe/camera_utils";
+import * as HolisticModule from "@mediapipe/holistic";
 
 function App() {
   const webcamRef = useRef(null);
@@ -33,7 +34,7 @@ function App() {
 
     // Draw pose landmarks
     if (results.poseLandmarks) {
-      connect(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
+      connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
     }
 
     // // Draw face landmarks
