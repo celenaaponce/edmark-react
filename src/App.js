@@ -44,15 +44,15 @@ function App() {
     //   drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, { color: "#C0C0C070", lineWidth: 1 });
     // }
 
-    // // Draw left hand landmarks
-    // if (results.leftHandLandmarks) {
-    //   drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
-    // }
+    // Draw left hand landmarks
+    if (results.leftHandLandmarks) {
+      drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
+    }
 
-    // // Draw right hand landmarks
-    // if (results.rightHandLandmarks) {
-    //   drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, { color: "#00CC00", lineWidth: 5 });
-    // }
+    // Draw right hand landmarks
+    if (results.rightHandLandmarks) {
+      drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, { color: "#00CC00", lineWidth: 5 });
+    }
     canvasCtx.restore();
   }
 
