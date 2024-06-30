@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/edmark-react/static/css/main.073c9b0a.css",
-    "main.js": "/edmark-react/static/js/main.ba0a709a.js",
+    "main.js": "/edmark-react/static/js/main.41bb9580.js",
     "static/js/787.13af4f46.chunk.js": "/edmark-react/static/js/787.13af4f46.chunk.js",
     "index.html": "/edmark-react/index.html",
     "main.073c9b0a.css.map": "/edmark-react/static/css/main.073c9b0a.css.map",
-    "main.ba0a709a.js.map": "/edmark-react/static/js/main.ba0a709a.js.map",
+    "main.41bb9580.js.map": "/edmark-react/static/js/main.41bb9580.js.map",
     "787.13af4f46.chunk.js.map": "/edmark-react/static/js/787.13af4f46.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.ba0a709a.js"
+    "static/js/main.41bb9580.js"
   ]
 }
