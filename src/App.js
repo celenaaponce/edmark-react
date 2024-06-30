@@ -9,6 +9,7 @@ function App() {
   const [yDistance, setYDistance] = useState(null);
   const webcamRef = useRef(null);
   const cameraRef = useRef(null);
+  const canvasRef = useRef(null);
 
   function calcBoundingRect(imageWidth, imageHeight, landmarks) {
     let landmarkArray = [];
@@ -84,6 +85,25 @@ function App() {
   }
 
   function onResults(results) {
+    console.log('results', results);
+    const videoWidth = webcamRef.current.video.videoWidth;
+    const videoHeight = webcamRef.current.video.videoHeight;
+
+    // Set canvas width
+    canvasRef.current.width = videoWidth;
+    canvasRef.current.height = videoHeight;
+
+    const canvasElement = canvasRef.current;
+    const canvasCtx = canvasElement.getContext("2d");
+    canvasCtx.save();
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.drawImage(
+      results.image,
+      0,
+      0,
+      canvasElement.width,
+      canvasElement.height
+    );
     const imageWidth = webcamRef.current.video.videoWidth;
     const imageHeight = webcamRef.current.video.videoHeight;
     if (results.poseLandmarks && results.leftHandLandmarks) {
