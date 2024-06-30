@@ -83,7 +83,7 @@ function App() {
       });
       cameraRef.current.start();
     }
-  }, []);
+  });
 
   return (
     <div className="App">
