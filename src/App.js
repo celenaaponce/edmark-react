@@ -14,7 +14,7 @@ function App() {
   const connect = window.drawConnectors;
   const drawLandmarks = window.drawLandmarks
   
-  function preProcessLandmark(landmarks) {
+  function preProcessLandmark(landmarkList) {
     // Extract x and y values from landmarkList
     const xValues = landmarkList.map(element => element.x);
     const yValues = landmarkList.map(element => element.y);
@@ -85,8 +85,8 @@ function App() {
 
       const boundingRect = calcBoundingRect(frame, results.leftHandLandmarks);
       const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
-    const videoWidth = webcamRef.current.video.videoWidth;
-    const videoHeight = webcamRef.current.video.videoHeight;
+    const imageWidth = webcamRef.current.video.videoWidth;
+    const imageHeight = webcamRef.current.video.videoHeight;
 
     // Set canvas width
     canvasRef.current.width = videoWidth;
