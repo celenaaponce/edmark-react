@@ -45,7 +45,7 @@ function App() {
     return normalizedLandmarkList;
   }
 
-  function calcBoundingRect(frame, landmarks) {
+  function calcBoundingRect(frame, landmarks, imageWidth, imageHeight) {
   let landmarkArray = [];
 
   for (let i = 0; i < landmarks.length; i++) {
@@ -108,7 +108,7 @@ function App() {
       setXDistance(xDistance);
       setYDistance(yDistance);
 
-      const boundingRect = calcBoundingRect(canvasCtx, results.leftHandLandmarks);
+      const boundingRect = calcBoundingRect(canvasCtx, results.leftHandLandmarks, imageWidth, imageHeight);
       const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
 
     // // Draw face landmarks
