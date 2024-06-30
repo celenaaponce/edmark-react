@@ -13,6 +13,7 @@ function App() {
   const drawLandmarks = window.drawLandmarks
 
   function onResults(results) {
+    console.log('results', results);
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
