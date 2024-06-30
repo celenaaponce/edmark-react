@@ -77,20 +77,12 @@ function App() {
   return boundingRect;
 }
   function onResults(results) {
-    if (results.poseLandmarks && results.leftHandLandmarks) {
-      const xDistance = Math.abs(results.poseLandmarks.landmark[3].x - results.leftHandLandmarks.landmark[4].x);
-      const yDistance = Math.abs(results.poseLandmarks.landmark[3].y - results.leftHandLandmarks.landmark[4].y);
-      setXDistance(xDistance);
-      setYDistance(yDistance);
-
-      const boundingRect = calcBoundingRect(frame, results.leftHandLandmarks);
-      const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
     const imageWidth = webcamRef.current.video.videoWidth;
     const imageHeight = webcamRef.current.video.videoHeight;
 
     // Set canvas width
-    canvasRef.current.width = videoWidth;
-    canvasRef.current.height = videoHeight;
+    canvasRef.current.width = imageWidth;
+    canvasRef.current.height = imageHeight;
 
     const canvasElement = canvasRef.current;
     const canvasCtx = canvasElement.getContext("2d");
@@ -109,6 +101,15 @@ function App() {
       connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
       drawLandmarks(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 })
     }
+
+    if (results.poseLandmarks && results.leftHandLandmarks) {
+      const xDistance = Math.abs(results.poseLandmarks.landmark[3].x - results.leftHandLandmarks.landmark[4].x);
+      const yDistance = Math.abs(results.poseLandmarks.landmark[3].y - results.leftHandLandmarks.landmark[4].y);
+      setXDistance(xDistance);
+      setYDistance(yDistance);
+
+      const boundingRect = calcBoundingRect(canvasCtx, results.leftHandLandmarks);
+      const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
 
     // // Draw face landmarks
     // if (results.faceLandmarks) {
