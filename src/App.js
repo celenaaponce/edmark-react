@@ -181,19 +181,32 @@ function App() {
           <div className="App">
             <Webcam
               ref={webcamRef}
-              style={{ display: "none" }} // Hide webcam if not needed for display
+              style={{
+                display: 'none'
+              }}
             />
             <canvas
               ref={canvasRef}
               className="output_canvas"
               style={{
-                width: "100%",
-                height: "auto",
+                width: '100%',
+                height: 'auto',
                 zIndex: 9,
               }}
             ></canvas>
           </div>
         </center>
+        <p>
+          React JS <code>Holistic</code> using MediaPipe.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
       </header>
     </div>
   );
