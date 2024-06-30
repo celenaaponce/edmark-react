@@ -1,4 +1,3 @@
-
 import './App.css';
 import { Holistic } from "@mediapipe/holistic";
 import React, { useRef, useEffect } from "react";
