@@ -73,7 +73,7 @@ function App() {
     width: maxX - minX,
     height: maxY - minY
   };
-    console.log(boundRect)
+    console.log(boundingRect)
 
   return boundingRect;
 }
