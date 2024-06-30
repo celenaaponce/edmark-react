@@ -76,7 +76,6 @@ function App() {
 
   return boundingRect;
 }
-  }
   function onResults(results) {
     if (results.poseLandmarks && results.leftHandLandmarks) {
       const xDistance = Math.abs(results.poseLandmarks.landmark[3].x - results.leftHandLandmarks.landmark[4].x);
@@ -85,7 +84,7 @@ function App() {
       setYDistance(yDistance);
 
       const boundingRect = calcBoundingRect(frame, results.leftHandLandmarks);
-      const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);
+      const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
