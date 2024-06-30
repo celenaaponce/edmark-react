@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to GitHub Pages
       run: |
         git config --global user.email "celena.a.ponce@gmail.com"
-        git config --global user.name "celenaaponce"
+        git config --global user.name "Celena Ponce"
         npm install -g gh-pages
         npm run deploy
       env:
