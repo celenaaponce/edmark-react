@@ -28,7 +28,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
       run: |
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
+        git config --global user.email "celena.a.ponce@gmail.com"
+        git config --global user.name "celenaaponce"
         npm install -g gh-pages
         npx gh-pages -d build -r "https://${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/celenaaponce/edmark-react.git"
