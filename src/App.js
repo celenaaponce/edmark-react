@@ -111,7 +111,7 @@ function App() {
 
       const boundingRect = calcBoundingRect(canvasCtx, results.leftHandLandmarks, imageWidth, imageHeight);
       const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
-      console.log(preProcessedLandmarks);
+      // console.log(preProcessedLandmarks);
       console.log(yDistance);
       console.log(xDistance);
     // // Draw face landmarks
