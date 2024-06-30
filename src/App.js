@@ -46,14 +46,14 @@ function App() {
 
     // Draw left hand landmarks
     if (results.leftHandLandmarks) {
-      connect(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
-      drawLandmarks(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
+      connect(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
+      drawLandmarks(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
     }
 
     // Draw right hand landmarks
     if (results.rightHandLandmarks) {
-      connect(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
-      drawLandmarks(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, { color: "#00CC00", lineWidth: 5 });
+      connect(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
+      drawLandmarks(canvasCtx, results.rightHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#00CC00", lineWidth: 5 });
     }
     canvasCtx.restore();
   }
