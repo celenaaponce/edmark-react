@@ -1,12 +1,12 @@
-import './App.css';
+import "./App.css";
 import React, { useRef, useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import { Holistic } from "@mediapipe/holistic";
 import * as HolisticModule from "@mediapipe/holistic";
 
 function App() {
-  const [xDistance, setXDistance] = useState(null);
-  const [yDistance, setYDistance] = useState(null);
+  const [, setXDistance] = useState(null);
+  const [, setYDistance] = useState(null);
   const webcamRef = useRef(null);
   const cameraRef = useRef(null);
   const canvasRef = useRef(null);
@@ -85,7 +85,7 @@ function App() {
   }
 
   function onResults(results) {
-    console.log('results', results);
+    console.log("results", results);
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
@@ -172,7 +172,7 @@ function App() {
         cameraRef.current.stop();
       }
     };
-  }, []);
+  });
 
   return (
     <div className="App">
