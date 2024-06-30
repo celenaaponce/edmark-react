@@ -8,6 +8,8 @@ function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const cameraRef = useRef(null);  // Use useRef for the camera
+  const connect = window.drawConnectors;
+  // const drawLandmarks = window.drawLandmarks
 
   function onResults(results) {
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -31,7 +33,7 @@ function App() {
 
     // Draw pose landmarks
     if (results.poseLandmarks) {
-      drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
+      connect(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
     }
 
     // // Draw face landmarks
