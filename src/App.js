@@ -93,25 +93,29 @@ function App() {
       <header className="App-header">
         <center>
           <div className="App">
-            <Webcam
-              ref={webcamRef}
-              style={{
-                textAlign: "center",
-                zindex: 9,
-                width: '300px',
-                height: 'auto',
-                display: 'none'
-              }}
-            />
-            <canvas
-              ref={canvasRef}
-              className="output_canvas"
-              style={{
-                zindex: 9,
-                width: '300px',
-                height: 'auto',
-              }}
-            ></canvas>
+            <div style={{ position: 'relative', width: '300px' }}>
+              <Webcam
+                ref={webcamRef}
+                style={{
+                  textAlign: "center",
+                  zindex: 9,
+                  width: '300px',
+                  height: 'auto',
+                }}
+              />
+              <canvas
+                ref={canvasRef}
+                className="output_canvas"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zindex: 10,
+                  width: '300px',
+                  height: 'auto',
+                }}
+              ></canvas>
+            </div>
           </div>
         </center>
         <p>
