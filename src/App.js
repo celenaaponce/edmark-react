@@ -174,24 +174,34 @@ function App() {
     };
   });
 
-  return (
+  return  (
     <div className="App">
       <header className="App-header">
         <center>
           <div className="App">
             <Webcam
               ref={webcamRef}
+              videoConstraints={{
+                width: 640,
+                height: 480,
+                facingMode: "user"
+              }}
               style={{
-                display: 'none'
+                textAlign: "center",
+                zindex: 9,
+                width: '100%',
+                height: 'auto',
               }}
             />
             <canvas
               ref={canvasRef}
               className="output_canvas"
               style={{
+                position: "absolute",
+                textAlign: "center",
+                zindex: 9,
                 width: '100%',
                 height: 'auto',
-                zIndex: 9,
               }}
             ></canvas>
           </div>
