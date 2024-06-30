@@ -6,7 +6,7 @@ on:
       - main  # Or the branch you want to trigger the deployment
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +25,10 @@ jobs:
       run: npm run build
 
     - name: Deploy to GitHub Pages
-      run: |
-        git config --global user.email "celena.a.ponce@gmail.com"
-        git config --global user.name "celenaaponce"
-        npm install -g gh-pages
-        npm run deploy
       env:
         GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+        npm install -g gh-pages
+        npx gh-pages -d build -r "https://${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/celenaaponce/edmark-react.git"
