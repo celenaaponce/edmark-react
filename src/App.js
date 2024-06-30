@@ -34,10 +34,10 @@ function App() {
     );
 
     // Draw pose landmarks
-    if (results.poseLandmarks) {
-      connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
-      drawLandmarks(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 })
-    }
+    // if (results.poseLandmarks) {
+    //   connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
+    //   drawLandmarks(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 })
+    // }
 
     // // Draw face landmarks
     // if (results.faceLandmarks) {
