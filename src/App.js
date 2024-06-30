@@ -73,6 +73,7 @@ function App() {
     width: maxX - minX,
     height: maxY - minY
   };
+    console.log(boundRect)
 
   return boundingRect;
 }
@@ -110,7 +111,9 @@ function App() {
 
       const boundingRect = calcBoundingRect(canvasCtx, results.leftHandLandmarks, imageWidth, imageHeight);
       const preProcessedLandmarks = preProcessLandmark(results.leftHandLandmarks.landmark);}
-
+      console.log(preProcessedLandmarks);
+      console.log(yDistance);
+      console.log(xDistance);
     // // Draw face landmarks
     // if (results.faceLandmarks) {
     //   drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, { color: "#C0C0C070", lineWidth: 1 });
