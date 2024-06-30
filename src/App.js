@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import logo from './logo.svg';
+import './App.css';
 import { Holistic } from "@mediapipe/holistic";
+import React, { useRef, useEffect } from "react";
+import * as HolisticModule from "@mediapipe/holistic";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
-import "./App.css";
 
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const connect = window.drawConnectors;
-  const drawLandmarks = window.drawLandmarks;
-  var camera = null;
+  const cameraRef = useRef(null);  // Use useRef for the camera
 
   function onResults(results) {
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -31,38 +31,30 @@ function App() {
       canvasElement.height
     );
 
-    // Draw face landmarks
-    // if (results.faceLandmarks) {
-    //   drawLandmarks(canvasCtx, results.faceLandmarks, {
-    //     color: "#ffcc00",
-    //     lineWidth: 1,
-    //   });
-    // }
-
-    // Draw pose landmarks
     if (results.poseLandmarks) {
-      drawLandmarks(canvasCtx, results.poseLandmarks, {
-        color: "#00ff00",
-        lineWidth: 2,
+      HolisticModule.drawConnectors(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, {
+        color: "#00FF00",
+        lineWidth: 4
       });
     }
-
-    // Draw left hand landmarks
+    if (results.faceLandmarks) {
+      HolisticModule.drawConnectors(canvasCtx, results.faceLandmarks, HolisticModule.FACEMESH_TESSELATION, {
+        color: "#C0C0C070",
+        lineWidth: 1
+      });
+    }
     if (results.leftHandLandmarks) {
-      drawLandmarks(canvasCtx, results.leftHandLandmarks, {
-        color: "#ff0000",
-        lineWidth: 2,
+      HolisticModule.drawConnectors(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, {
+        color: "#CC0000",
+        lineWidth: 5
       });
     }
-
-    // Draw right hand landmarks
     if (results.rightHandLandmarks) {
-      drawLandmarks(canvasCtx, results.rightHandLandmarks, {
-        color: "#0000ff",
-        lineWidth: 2,
+      HolisticModule.drawConnectors(canvasCtx, results.rightHandLandmarks, HolisticModule.HAND_CONNECTIONS, {
+        color: "#00CC00",
+        lineWidth: 5
       });
     }
-
     canvasCtx.restore();
   }
 
@@ -77,6 +69,7 @@ function App() {
       modelComplexity: 1,
       smoothLandmarks: true,
       enableSegmentation: false,
+      smoothSegmentation: false,
       refineFaceLandmarks: true,
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5,
@@ -84,18 +77,15 @@ function App() {
 
     holistic.onResults(onResults);
 
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null
-    ) {
-      camera = new cam.Camera(webcamRef.current.video, {
+    if (webcamRef.current !== null) {
+      cameraRef.current = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
           await holistic.send({ image: webcamRef.current.video });
         },
         width: 640,
         height: 480,
       });
-      camera.start();
+      cameraRef.current.start();
     }
   }, []);
 
@@ -109,24 +99,24 @@ function App() {
               style={{
                 textAlign: "center",
                 zindex: 9,
-                width: "300px",
-                height: "auto",
-                display: "none",
+                width: '300px',
+                height: 'auto',
+                display: 'none'
               }}
-            />{" "}
+            />
             <canvas
               ref={canvasRef}
               className="output_canvas"
               style={{
                 zindex: 9,
-                width: "300px",
-                height: "auto",
+                width: '300px',
+                height: 'auto',
               }}
             ></canvas>
           </div>
         </center>
         <p>
-          React js <code>Holistic</code> using Mediapipe.
+          React JS <code>Holistic</code> using MediaPipe.
         </p>
         <a
           className="App-link"
