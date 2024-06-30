@@ -55,13 +55,13 @@ function App() {
   }
 
   useEffect(() => {
-    const holistic = new Holistic({
+    const holisticEffect = new Holistic({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
       },
     });
 
-    holistic.setOptions({
+    holisticEffect.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
       enableSegmentation: false,
@@ -71,12 +71,12 @@ function App() {
       minTrackingConfidence: 0.5,
     });
 
-    holistic.onResults(onResults);
+    holisticEffect.onResults(onResults);
 
     if (webcamRef.current !== null) {
       cameraRef.current = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
-          await holistic.send({ image: webcamRef.current.video });
+          await holisticEffect.send({ image: webcamRef.current.video });
         },
         width: 640,
         height: 480,
