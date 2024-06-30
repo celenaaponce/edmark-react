@@ -94,26 +94,20 @@ function App() {
           <div className="App">
             <Webcam
               ref={webcamRef}
-              videoConstraints={{
-                width: 640,
-                height: 480,
-                facingMode: "user"
-              }}
               style={{
                 textAlign: "center",
                 zindex: 9,
-                width: '100%',
+                width: '300px',
                 height: 'auto',
+                display:'none'
               }}
-            />
+            />{" "}
             <canvas
               ref={canvasRef}
               className="output_canvas"
               style={{
-                position: "absolute",
-                textAlign: "center",
                 zindex: 9,
-                width: '100%',
+                width: '300px',
                 height: 'auto',
               }}
             ></canvas>
