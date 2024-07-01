@@ -37,6 +37,10 @@ function App() {
         color: "#00ff00",
         lineWidth: 2,
       });
+      connect(canvasCtx, results.poseLandmarks, {
+        color: "#00ff00",
+        lineWidth: 2,
+      });
     }
 
     canvasCtx.restore();
