@@ -7,6 +7,7 @@ import "./App.css";
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const cameraRef = useRef(null); 
   const connect = window.drawConnectors;
   const drawLandmarks = window.drawLandmarks;
   var camera = null;
@@ -81,7 +82,7 @@ function App() {
       <header className="App-header">
         <center>
           <div className="App">
-            <CustomWebcam />
+            <CustomWebcam ref={cameraRef} />
             <canvas
               ref={canvasRef}
               className="output_canvas"
