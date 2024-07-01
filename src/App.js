@@ -10,6 +10,7 @@ function App() {
   const webcamRef = useRef(null);
   const cameraRef = useRef(null);
   const canvasRef = useRef(null);
+  const connect = window.drawConnectors;
 
   function calcBoundingRect(imageWidth, imageHeight, landmarks) {
     let landmarkArray = [];
@@ -107,6 +108,8 @@ function App() {
     const imageWidth = webcamRef.current.video.videoWidth;
     const imageHeight = webcamRef.current.video.videoHeight;
     if (results.poseLandmarks && results.leftHandLandmarks) {
+      connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
+      connect(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
       const xDistance = Math.abs(
         results.poseLandmarks.landmark[3].x -
           results.leftHandLandmarks.landmark[4].x
