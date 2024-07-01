@@ -64,18 +64,15 @@ function App() {
 
     holistic.onResults(onResults);
 
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null
-    ) {
-      camera = new cam.Camera(webcamRef.current.video, {
+    if (webcamRef.current !== null) {
+      cameraRef.current = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
           await holistic.send({ image: webcamRef.current.video });
         },
         width: 640,
         height: 480,
       });
-      camera.start();
+      cameraRef.current.start();
     }
   }, []);
 
