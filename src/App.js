@@ -141,7 +141,7 @@ function App() {
   //     console.log(preProcessedLandmarksFace);
   //   }
       canvasCtx.restore();
-  }
+  }}
 
   useEffect(() => {
     const holistic = new Holistic({
