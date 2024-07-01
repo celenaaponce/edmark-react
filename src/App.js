@@ -5,88 +5,88 @@ import { Holistic } from "@mediapipe/holistic";
 import * as HolisticModule from "@mediapipe/holistic";
 
 function App() {
-  const [, setXDistance] = useState(null);
-  const [, setYDistance] = useState(null);
+  // const [, setXDistance] = useState(null);
+  // const [, setYDistance] = useState(null);
   const webcamRef = useRef(null);
   const cameraRef = useRef(null);
   const canvasRef = useRef(null);
   const connect = window.drawConnectors;
 
-  function calcBoundingRect(imageWidth, imageHeight, landmarks) {
-    let landmarkArray = [];
+  // function calcBoundingRect(imageWidth, imageHeight, landmarks) {
+  //   let landmarkArray = [];
 
-    for (let i = 0; i < landmarks.length; i++) {
-      const landmark = landmarks[i];
-      const landmarkX = Math.min(
-        Math.floor(landmark.x * imageWidth),
-        imageWidth - 1
-      );
-      const landmarkY = Math.min(
-        Math.floor(landmark.y * imageHeight),
-        imageHeight - 1
-      );
-      landmarkArray.push({ x: landmarkX, y: landmarkY });
-    }
+  //   for (let i = 0; i < landmarks.length; i++) {
+  //     const landmark = landmarks[i];
+  //     const landmarkX = Math.min(
+  //       Math.floor(landmark.x * imageWidth),
+  //       imageWidth - 1
+  //     );
+  //     const landmarkY = Math.min(
+  //       Math.floor(landmark.y * imageHeight),
+  //       imageHeight - 1
+  //     );
+  //     landmarkArray.push({ x: landmarkX, y: landmarkY });
+  //   }
 
-    // Calculate bounding rectangle
-    let minX = imageWidth,
-      minY = imageHeight;
-    let maxX = 0,
-      maxY = 0;
+  //   // Calculate bounding rectangle
+  //   let minX = imageWidth,
+  //     minY = imageHeight;
+  //   let maxX = 0,
+  //     maxY = 0;
 
-    for (let i = 0; i < landmarkArray.length; i++) {
-      const { x, y } = landmarkArray[i];
-      if (x < minX) minX = x;
-      if (x > maxX) maxX = x;
-      if (y < minY) minY = y;
-      if (y > maxY) maxY = y;
-    }
+  //   for (let i = 0; i < landmarkArray.length; i++) {
+  //     const { x, y } = landmarkArray[i];
+  //     if (x < minX) minX = x;
+  //     if (x > maxX) maxX = x;
+  //     if (y < minY) minY = y;
+  //     if (y > maxY) maxY = y;
+  //   }
 
-    const boundingRect = {
-      x: minX,
-      y: minY,
-      width: maxX - minX,
-      height: maxY - minY,
-    };
+  //   const boundingRect = {
+  //     x: minX,
+  //     y: minY,
+  //     width: maxX - minX,
+  //     height: maxY - minY,
+  //   };
 
-    return boundingRect;
-  }
+  //   return boundingRect;
+  // }
 
-  function preProcessLandmark(landmarkList) {
-    // Extract x and y values from landmarkList
-    const xValues = landmarkList.map((element) => element.x);
-    const yValues = landmarkList.map((element) => element.y);
+  // function preProcessLandmark(landmarkList) {
+  //   // Extract x and y values from landmarkList
+  //   const xValues = landmarkList.map((element) => element.x);
+  //   const yValues = landmarkList.map((element) => element.y);
 
-    // Deep copy x and y values
-    const tempX = [...xValues];
-    const tempY = [...yValues];
+  //   // Deep copy x and y values
+  //   const tempX = [...xValues];
+  //   const tempY = [...yValues];
 
-    // Convert to relative coordinates
-    let baseX = tempX[0];
-    let baseY = tempY[0];
-    for (let i = 0; i < tempX.length; i++) {
-      tempX[i] -= baseX;
-      tempY[i] -= baseY;
-    }
+  //   // Convert to relative coordinates
+  //   let baseX = tempX[0];
+  //   let baseY = tempY[0];
+  //   for (let i = 0; i < tempX.length; i++) {
+  //     tempX[i] -= baseX;
+  //     tempY[i] -= baseY;
+  //   }
 
-    // Flatten and interleave x and y values
-    const tempLandmarkList = [];
-    for (let i = 0; i < tempX.length; i++) {
-      tempLandmarkList.push(tempX[i]);
-      tempLandmarkList.push(tempY[i]);
-    }
+  //   // Flatten and interleave x and y values
+  //   const tempLandmarkList = [];
+  //   for (let i = 0; i < tempX.length; i++) {
+  //     tempLandmarkList.push(tempX[i]);
+  //     tempLandmarkList.push(tempY[i]);
+  //   }
 
-    // Normalization
-    const maxAbsValue = Math.max(...tempLandmarkList.map(Math.abs));
-    const normalizedLandmarkList = tempLandmarkList.map(
-      (value) => value / maxAbsValue
-    );
+  //   // Normalization
+  //   const maxAbsValue = Math.max(...tempLandmarkList.map(Math.abs));
+  //   const normalizedLandmarkList = tempLandmarkList.map(
+  //     (value) => value / maxAbsValue
+  //   );
 
-    return normalizedLandmarkList;
-  }
+  //   return normalizedLandmarkList;
+  // }
 
   function onResults(results) {
-    console.log("results", results);
+
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
@@ -105,39 +105,42 @@ function App() {
       canvasElement.width,
       canvasElement.height
     );
-    const imageWidth = webcamRef.current.video.videoWidth;
-    const imageHeight = webcamRef.current.video.videoHeight;
+    // const imageWidth = webcamRef.current.video.videoWidth;
+    // const imageHeight = webcamRef.current.video.videoHeight;
     if (results.poseLandmarks && results.leftHandLandmarks) {
-      connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
-      connect(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
-      const xDistance = Math.abs(
-        results.poseLandmarks.landmark[3].x -
-          results.leftHandLandmarks.landmark[4].x
-      );
-      const yDistance = Math.abs(
-        results.poseLandmarks.landmark[3].y -
-          results.leftHandLandmarks.landmark[4].y
-      );
-      setXDistance(xDistance);
-      setYDistance(yDistance);
+        connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
 
-      const boundingRect = calcBoundingRect(
-        imageWidth,
-        imageHeight,
-        results.leftHandLandmarks
-      );
-      const preProcessedLandmarks = preProcessLandmark(
-        results.leftHandLandmarks.landmark
-      );
-      console.log(boundingRect);
-      console.log(preProcessedLandmarks);
-    }
-    if (results.poseLandmarks) {
-      const preProcessedLandmarksFace = preProcessLandmark(
-        results.poseLandmarks.landmark
-      );
-      console.log(preProcessedLandmarksFace);
-    }
+  //     connect(canvasCtx, results.poseLandmarks, HolisticModule.POSE_CONNECTIONS, { color: "#00FF00", lineWidth: 4 });
+  //     connect(canvasCtx, results.leftHandLandmarks, HolisticModule.HAND_CONNECTIONS, { color: "#CC0000", lineWidth: 5 });
+  //     const xDistance = Math.abs(
+  //       results.poseLandmarks.landmark[3].x -
+  //         results.leftHandLandmarks.landmark[4].x
+  //     );
+  //     const yDistance = Math.abs(
+  //       results.poseLandmarks.landmark[3].y -
+  //         results.leftHandLandmarks.landmark[4].y
+  //     );
+  //     setXDistance(xDistance);
+  //     setYDistance(yDistance);
+
+  //     const boundingRect = calcBoundingRect(
+  //       imageWidth,
+  //       imageHeight,
+  //       results.leftHandLandmarks
+  //     );
+  //     const preProcessedLandmarks = preProcessLandmark(
+  //       results.leftHandLandmarks.landmark
+  //     );
+  //     console.log(boundingRect);
+  //     console.log(preProcessedLandmarks);
+  //   }
+  //   if (results.poseLandmarks) {
+  //     const preProcessedLandmarksFace = preProcessLandmark(
+  //       results.poseLandmarks.landmark
+  //     );
+  //     console.log(preProcessedLandmarksFace);
+  //   }
+      canvasCtx.restore();
   }
 
   useEffect(() => {
