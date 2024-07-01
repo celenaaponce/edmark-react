@@ -167,11 +167,6 @@ function App() {
       cameraRef.current.start();
     }
 
-    return () => {
-      if (cameraRef.current) {
-        cameraRef.current.stop();
-      }
-    };
   });
 
   return  (
