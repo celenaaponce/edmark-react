@@ -1,16 +1,13 @@
 import React, { useRef, useEffect } from "react";
-import { Holistic } from "@mediapipe/holistic";
+import { Holistic, POSE_CONNECTIONS, HAND_CONNECTIONS } from "@mediapipe/holistic";
+import {drawConnectors, drawLandmarks} from '@mediapipe/drawing_utils'
 import * as cam from "@mediapipe/camera_utils";
-import CustomWebcam from "./CustomWebcam"; // import it
+import Webcam from "react-webcam";
 import "./App.css";
 
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const cameraRef = useRef(null); 
-  const connect = window.drawConnectors;
-  const drawLandmarks = window.drawLandmarks;
-  var camera = null;
 
   function onResults(results) {
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -32,16 +29,42 @@ function App() {
       canvasElement.height
     );
 
+    // Draw face landmarks
+    // if (results.faceLandmarks) {
+    //   drawLandmarks(canvasCtx, results.faceLandmarks, {
+    //     color: "#ffcc00",
+    //     lineWidth: 1,
+    //   });
+    // }
+
     // Draw pose landmarks
     if (results.poseLandmarks) {
       drawLandmarks(canvasCtx, results.poseLandmarks, {
         color: "#00ff00",
         lineWidth: 2,
       });
-      connect(canvasCtx, results.poseLandmarks, {
-        color: "#00ff00",
+      drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+        {color: '#CC0000', lineWidth: 5});
+    }
+
+    // Draw left hand landmarks
+    if (results.leftHandLandmarks) {
+      drawLandmarks(canvasCtx, results.leftHandLandmarks, {
+        color: "#ff0000",
         lineWidth: 2,
       });
+      drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS,
+        {color: '#CC0000', lineWidth: 5});
+    }
+
+    // Draw right hand landmarks
+    if (results.rightHandLandmarks) {
+      drawLandmarks(canvasCtx, results.rightHandLandmarks, {
+        color: "#0000ff",
+        lineWidth: 2,
+      });
+      drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS,
+        {color: '#CC0000', lineWidth: 5});
     }
 
     canvasCtx.restore();
@@ -65,15 +88,18 @@ function App() {
 
     holistic.onResults(onResults);
 
-    if (webcamRef.current !== null) {
-      cameraRef.current = new cam.Camera(webcamRef.current.video, {
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null
+    ) {
+      const camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
           await holistic.send({ image: webcamRef.current.video });
         },
         width: 640,
         height: 480,
       });
-      cameraRef.current.start();
+      camera.start();
     }
   }, []);
 
@@ -82,7 +108,16 @@ function App() {
       <header className="App-header">
         <center>
           <div className="App">
-            <CustomWebcam ref={cameraRef} />
+            <Webcam
+              ref={webcamRef}
+              style={{
+                textAlign: "center",
+                zindex: 9,
+                width: "300px",
+                height: "auto",
+                display: "none",
+              }}
+            />{" "}
             <canvas
               ref={canvasRef}
               className="output_canvas"
